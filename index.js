@@ -142,10 +142,10 @@ BagIt.prototype.readFile = (file) => {
 /**
  *  Validate the format and content of the Bag.
  *  @param {boolean} fast - If set to True, skip checksums.
- *  @returns {Object} result - `{isValid:True}` if valid, contains errors
+ *  @returns {Object} result - `{isValid:true}` if valid, contains errors
  *                              otherwise.
  */
 BagIt.prototype.validate = (fast) => {
-  return {};
+  return {isValid : false};
 };
 module.exports = BagIt;
