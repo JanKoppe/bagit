@@ -1,0 +1,25 @@
+{
+  "name": "bagit",
+  "version": "0.0.1",
+  "description": "Creation, modification and validation of BagIt containers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JanKoppe/bagit.git"
+  },
+  "keywords": [
+    "bagit"
+  ],
+  "author": "Jan Koppe",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/JanKoppe/bagit/issues"
+  },
+  "homepage": "https://github.com/JanKoppe/bagit#readme",
+  "devDependencies": {
+    "tape": "^4.5.0"
+  }
+}
