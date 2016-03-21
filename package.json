@@ -1,0 +1,33 @@
+{
+  "name": "bagit",
+  "version": "0.0.1",
+  "description": "Creation, modification and validation of BagIt containers",
+  "main": "index.js",
+  "scripts": {
+    "test": "rm -rf scratch && tape test/* | faucet",
+    "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JanKoppe/bagit.git"
+  },
+  "keywords": [
+    "bagit"
+  ],
+  "author": "Jan Koppe",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/JanKoppe/bagit/issues"
+  },
+  "homepage": "https://github.com/JanKoppe/bagit#readme",
+  "devDependencies": {
+    "faucet": "0.0.1",
+    "jsdoc": "^3.4.0",
+    "minami": "^1.1.1",
+    "tape": "^4.5.0"
+  },
+  "dependencies": {
+    "bluebird": "^3.3.4",
+    "fs": "0.0.2"
+  }
+}

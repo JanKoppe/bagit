@@ -1,0 +1,6 @@
+├─ bagit@0.0.1
+│  ├─ licenses: Apache-2.0
+│  └─ repository: git+https://github.com/JanKoppe/bagit
+└─ fs@0.0.2
+   └─ licenses: MIT
+
