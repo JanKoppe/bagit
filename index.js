@@ -20,6 +20,7 @@
 
 var fs = require('fs');
 var Promise = require('bluebird');
+var exec = require('child_process').exec;
 /**
  *  @constructor
  *  @param {string} path - path to the Bag.
@@ -72,6 +73,8 @@ function Bag (path) {
   if(path && this.isDirectory(path)) {
     this.path = path;
     this.validPath = true;
+  } else {
+    
   }
 
   /**
@@ -97,6 +100,7 @@ function Bag (path) {
       .then(() => {
         return this.createDirectory(this.path + '/data');
       })
+      .then(this.writeManifest)
       .then(()=>{fulfill();})
       .catch(e=>{reject(e);}) ;
 
@@ -225,7 +229,6 @@ function Bag (path) {
    *  @returns {boolean} True, if copying the file was successful.
    */
   this.copyFile = (dest, source) => {
-    return false;
   };
 
   /**
@@ -234,8 +237,22 @@ function Bag (path) {
    *                         data/ directory.
    *  @returns {boolean} True, if deletion was successful.
    */
-  this.delFile = (file) => {
-    return false;
+  this.deleteFile = (file) => {
+    return new Promise((fulfill, reject) => {
+      if(!file) {
+        reject('empty file parameter');
+      } else {
+        fs.unlink(file, (e) => {
+          if(e) {
+            reject(e);
+          } else {
+            this.writeManifest
+              .then(fulfill)
+              .catch(reject);
+          }
+        });
+      }
+    });
   };
 
   /**
@@ -248,13 +265,68 @@ function Bag (path) {
   };
 
   /**
+   *  Create data manifest
+   *
+   */
+  this.writeManifest = () => {
+    return new Promise((fulfill, reject) => {
+      var checksum = exec('bagit.py --md5 --sha1 ' + this.path,
+          (error, stdout, stderr) => {
+            if(error !== null) {
+              reject(error || stderr);
+            } else {
+              fulfill(stdout);
+            }
+          });
+    });
+  };
+  this.readManifest = (crypto) => {
+    return new Promise((fulfill, reject) => {
+      fs.readFile(this.path + '/manifest-' + crypto + '.txt', 'utf-8',
+      (error, data) => {
+        if(error) {
+          reject(error);
+        } else {
+          //  split into lines, then split those lines again and push entries
+          //  into a hashmap (keyed by filename) that is passed on to fulfill()
+          data = data.split('\n');
+          var manifest = {};
+          data.map(line => {
+            line = line.split(' ');
+            manifest[line[2]] = line[0];
+          });
+          fulfill(manifest);
+        }
+      });
+    });
+  };
+
+  /**
    *  Validate the format and content of the Bag.
    *  @param {boolean} fast - If set to True, skip checksums.
-   *  @returns {Object} result - `{isValid:true}` if valid, contains errors
-   *                              otherwise.
+   *  @returns {Promise} result
    */
   this.validate = (fast) => {
-    return {isValid : false};
+    return new Promise((fulfill, reject) => {
+      var fast_arg = '';
+
+      if (fast) {
+        fast_arg = ' --fast ';
+      }
+      console.log(this.path);
+      var validator = exec('bagit.py --validate ' + fast_arg + this.path,
+        (error, stdout, stderr) => {
+          console.log('validating!');
+          if(error !== null) {
+            reject(error || stderr);
+          } else {
+            console.log(stdout);
+            console.log(this.path);
+            console.log('bagit.py ' + fast_arg + this.path);
+            fulfill(stdout);
+          }
+        });
+    });
   };
 }
 module.exports = Bag;
