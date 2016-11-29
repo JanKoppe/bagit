@@ -1,6 +1,6 @@
 {
   "name": "bagit",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Creation, modification and validation of BagIt containers",
   "main": "index.js",
   "scripts": {
