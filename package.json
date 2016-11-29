@@ -9,17 +9,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JanKoppe/bagit.git"
+    "url": "git+https://github.com/o2r-project/bagit.git"
   },
   "keywords": [
     "bagit"
   ],
   "author": "Jan Koppe",
+  "contributors": [
+    "Jan Koppe (https://github.com/JanKoppe/)",
+    "Daniel Nüst <daniel.nuest@uni-muenster.de> (https://github.com/nuest/)"
+  ],
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/JanKoppe/bagit/issues"
+    "url": "https://github.com/o2r-project/bagit/issues"
   },
-  "homepage": "https://github.com/JanKoppe/bagit#readme",
+  "homepage": "https://github.com/o2r-project/bagit#readme",
   "devDependencies": {
     "faucet": "0.0.1",
     "jsdoc": "^3.4.0",
