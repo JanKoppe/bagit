@@ -37,3 +37,6 @@ out
 
 # Scratch test directory
 scratch
+
+# Editor specific files
+.vscode
